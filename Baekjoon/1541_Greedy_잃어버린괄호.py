@@ -13,19 +13,19 @@ og = input()
 # temp = []
 
 # for i in range(1, len(og)):
-#     if new_str[-1] == '-':
-#         new_str += '(' + og[i]
-#         temp.append('(')
+#     if new_str[-1] == "-":
+#         new_str += "(" + og[i]
+#         temp.append("(")
 #         continue
-#     if og[i] == '-' and temp:
-#         new_str += ')' + og[i]
+#     if og[i] == "-" and temp:
+#         new_str += ")" + og[i]
 #         temp.pop()
 #         continue
 #     new_str += og[i]
 
 
 # if temp:
-#     new_str += ')'
+#     new_str += ")"
 
 # print(eval(new_str))
 
