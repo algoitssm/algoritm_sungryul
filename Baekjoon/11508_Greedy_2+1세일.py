@@ -10,7 +10,7 @@ heapq.heapify(data)
 ans = 0
 # 시간초과 풀이
 # data.sort()
-# # 오름차순으로 정렬해서 큰 값을 무료로 받을 수 있도록 풀이
+# 오름차순으로 정렬해서 큰 값을 무료로 받을 수 있도록 풀이
 # while True:
 #     ans += data.pop()
 #     if not data:

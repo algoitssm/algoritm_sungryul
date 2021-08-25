@@ -24,7 +24,7 @@ def dfs(start):  # 시간초과 => 통과!!
     return total
 
 
-def bfs(start):  # 9% 쯤 출력 초과
+def bfs(start):  # 9% 쯤 출력 초과 => 통과!
     visited = [0 for _ in range(N + 1)]
     queue = deque()
     queue.append(start)
@@ -38,6 +38,7 @@ def bfs(start):  # 9% 쯤 출력 초과
         for nxt in graph[num]:
             if not visited[nxt]:
                 queue.append(nxt)
+                visited[nxt] = 1
                 visited[nxt] = 1
 
     return total
@@ -58,8 +59,8 @@ visited = [0 for _ in range(N + 1)]
 for i in range(1, N + 1):
     if visited[i]:
         continue
-    total = dfs(i)
-    # total = bfs(i)
+    # total = dfs(i)
+    total = bfs(i)
     if max_val < total:
         ans = [i]
         max_val = total
