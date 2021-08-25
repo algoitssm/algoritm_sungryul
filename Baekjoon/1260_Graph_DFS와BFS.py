@@ -34,7 +34,7 @@ for _ in range(M):
     graph[node1].append(node2)
     graph[node2].append(node1)
 
-for node in graph:
+for node in graph:  # 정렬해줘야 결과가 똑같이 나옴
     node.sort()
 
 dfs(V)

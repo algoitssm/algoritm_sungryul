@@ -33,7 +33,7 @@ E = int(input())
 graph = [[] for _ in range(V + 1)]
 visited = [0 for _ in range(V + 1)]
 
-for _ in range(E):
+for _ in range(E):  # 양방향. 인접리스트
     node1, node2 = map(int, input().split())
     graph[node1].append(node2)
     graph[node2].append(node1)
