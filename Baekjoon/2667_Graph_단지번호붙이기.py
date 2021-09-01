@@ -5,7 +5,7 @@ def dfs(start):
     stack = [start]
     start_row, start_col = start
     visited[start_row][start_col] = cnt
-    cnt_each[cnt] = 1  # 딕셔너리에 cnt 키로 value는 1로 설정
+    cnt_each[cnt] = 1  # start는 새로운 단지의 시작이므로 딕셔너리에 cnt 키로 value는 1로 설정
 
     while stack:
         cur_row, cur_col = stack.pop()

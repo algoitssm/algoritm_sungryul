@@ -18,9 +18,8 @@ def bfs(start):  # 모든 시작점을 큐에 넣고 진행해야 한 번에 날
 
             if 0 <= nxt_row < N and 0 <= nxt_col < M:
                 if data[nxt_row][nxt_col] == 0 and not visited[nxt_row][nxt_col]:
-                    visited[nxt_row][nxt_col] = (
-                        visited[cur_row][cur_col] + 1
-                    )  # visited를 이전 좌표에서 1 증가
+                    visited[nxt_row][nxt_col] = visited[cur_row][cur_col] + 1
+                    # visited를 이전 좌표에서 1 증가
                     zero_cnt -= 1  # 0은 하나 없어지므로 zero_cnt 1 감소
                     que.append((nxt_row, nxt_col))
 
