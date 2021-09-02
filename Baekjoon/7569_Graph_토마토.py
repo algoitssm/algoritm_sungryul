@@ -37,7 +37,6 @@ dc = [0, 0, 1, -1, 0, 0]
 dh = [0, 0, 0, 0, 1, -1]
 
 start = []
-not_tomato = 0
 not_ripe = 0
 
 for height in range(H):
