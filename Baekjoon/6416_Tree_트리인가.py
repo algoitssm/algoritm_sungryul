@@ -1,6 +1,7 @@
 """
 1. 각 노드의 부모 노드 1개인지
 2. 루트 노드 1개인지
+3. 루트에서 시작해서 모든 노드를 순회할 수 있는지
 """
 
 import sys
@@ -9,7 +10,7 @@ from collections import deque
 input = sys.stdin.readline
 
 
-def bfs(root):
+def bfs(root, N):
     queue = deque()
     queue.append(root)
     visited[root] = 1
@@ -22,6 +23,8 @@ def bfs(root):
                 visited[nxt] = 1
                 queue.append(nxt)
                 cnt += 1
+        if cnt == N:
+            break
     return cnt
 
 
@@ -58,7 +61,7 @@ while True:
                 elif only_parent and len(root) == 1:
                     N = len(graph)  # 전체 노드 개수
                     start = list(root.keys())[0]  # 루트
-                    cnt = bfs(start)
+                    cnt = bfs(start, N)
 
                     if N == cnt:
                         print("Case {} is a tree.".format(tc))
