@@ -26,9 +26,10 @@ def post_order(n):
 
 N = int(input())  # 노드 개수
 
-left = [0] * 27
+left = [0] * 27  # 알파벳 A ~ Z 26개. 1번 인덱스부터 시작
 right = [0] * 27
 
+# ord() 통해 각 알파벳에 맞는 인덱스에 left와 right에 자식 노드 저장
 for _ in range(N):
     temp = input().split()
     if temp[1] != ".":

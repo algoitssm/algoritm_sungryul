@@ -1,6 +1,12 @@
+"""
+전체 트리를 인접 리스트로 입력 받고
+del_leaf 함수 통해 트리에서 visited 처리하여 삭제하고
+cnt_terminal 함수 통해 자식 노드 없는 말단 노드 개수 계산
+"""
+
 from collections import deque
 
-
+# 방문 처리하면 cnt_terminal에서 방문 X => 삭제와 동일
 def del_leaf(start):
     for_del = deque()
     for_del.append(start)
@@ -23,7 +29,7 @@ def cnt_terminal(root):
 
     while for_cnt:
         cur = for_cnt.popleft()
-        cnt_sign = True
+        cnt_sign = True  # 방문하지 않은 자식 노드가 있는지 여부
 
         for nxt in tree[cur]:
             if not visited[nxt]:
@@ -55,7 +61,7 @@ ans = 0
 
 del_leaf(target)
 
-if not visited[root]:
+if not visited[root]:  # 루트부터 제거하는 경우에는 0을 출력해야 하므로 조건 필요
     ans = cnt_terminal(root)
 
 print(ans)
