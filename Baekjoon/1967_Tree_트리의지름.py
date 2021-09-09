@@ -1,42 +1,55 @@
+"""
+1. root ~ terminal까지 최대 값인 terminal node 탐색
+2. 해당 terminal node에서 다시 탐색하여 최대값인 곳 탐색
+"""
+
 import sys
 from collections import deque
 
-sys.stdin = open('input.txt')
+
+def bfs(start):
+    global max_total, max_terminal
+    queue = deque()
+    queue.append(start)
+    visited[start] += 1
+    cnt = 1
+
+    while queue:
+        cur = queue.popleft()
+
+        for nxt in tree[cur]:
+            if visited[nxt[0]] == -1:
+                queue.append(nxt[0])
+                visited[nxt[0]] = visited[cur] + nxt[1]
+                if visited[nxt[0]] > max_total:
+                    max_total = visited[nxt[0]]
+                    max_terminal = nxt[0]
+                cnt += 1
+        if cnt == n:
+            break
+
+
 input = sys.stdin.readline
 
-def cnt_weight(node1, node2):
-    global temp
-    if node1 == node2:
-        return
-    temp += weight[node1][tree[node1][0]] + weight[node2][tree[node2][0]]
-    cnt_weight(tree[node1], tree[node2])
+n = int(input())  # 노드의 개수
 
+if n == 1:  # 노드 1개일 때
+    print(0)
+else:
+    tree = [[] for _ in range(n + 1)]
 
-n = int(input())    # 노드의 개수
-tree = [[] for _ in range(n+1)] # 인덱스가 자식 노드, 값이 부모 노드
-check_terminal = [True for _ in range(n+1)]    # 단말 노드 체크 위한 리스트
-terminal_node = []  # 단말 노드 저장할 리스트
-weight = [[0] * (n+1) for _ in range(n+1)]  # child -> parent 이동 시 weight
+    for _ in range(n - 1):
+        parent, child, weight = map(int, input().split())
+        tree[parent].append((child, weight))  # 양 방향으로 탐색해줘야 하므로 두 방향 모두 트리에 넣음
+        tree[child].append((parent, weight))
 
-for _ in range(n-1):
-    parent, child, n_weight = map(int, input().split())
-    tree[child].append(parent)
-    check_terminal[parent] = False
-    weight[child][parent] = n_weight
+    visited = [-1 for _ in range(n + 1)]
+    max_total = 0
+    max_terminal = 0
 
-n_terminal = 0
-for i in range(1, n+1):
-    if check_terminal[i]:
-        terminal_node.append(i)
-        n_terminal += 1
-
-ans = 0
-for i in range(n_terminal-1):
-    for j in range(i+1, n_terminal):
-        temp = 0
-        cnt_weight(terminal_node[i], terminal_node[j])
-        if temp > ans:
-            ans = temp
-
-print(ans)
-
+    bfs(1)
+    # max_terminal 찾고 나서 초기화 필요
+    max_total = 0
+    visited = [-1 for _ in range(n + 1)]
+    bfs(max_terminal)
+    print(max_total)
