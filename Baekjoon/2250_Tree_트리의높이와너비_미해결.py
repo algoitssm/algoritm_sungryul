@@ -1,6 +1,5 @@
 '''
 inorder
-=> 23% 오답
 '''
 
 import sys
