@@ -33,8 +33,10 @@ for _ in range(N):
     left[data] = l_node
     right[data] = r_node
 
-    is_root[l_node] = False
-    is_root[r_node] = False
+    if l_node > 0:
+        is_root[l_node] = False
+    if r_node > 0:
+        is_root[r_node] = False
 
 for i in range(1, N+1):
     if is_root[i]:
@@ -45,9 +47,9 @@ in_order(root, 0)
 
 ans = [1, 1]
 
-for i in range(len(levels)):
+for i in range(N+1):
     if levels[i]:
-        temp = levels[i][-1] - levels[i][0]
+        temp = max(levels[i]) - min(levels[i])
     else:
         continue
 

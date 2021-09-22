@@ -1,7 +1,8 @@
 import sys
 
-sys.setrecursionlimit(10**5)
+sys.setrecursionlimit(10**6)
 sys.stdin = open("input.txt")
+input = sys.stdin.readline
 
 '''
 메모리 초과
@@ -34,36 +35,33 @@ sys.stdin = open("input.txt")
 #     if right_in:
 #         find_pre_order(right_in, right_post)
 
+
+'''
+in_order에 있는 값들의 위치를 미리 list에 담고,
+root 기준으로 왼쪽 서브 트리 노드 개수와 오른쪽 서브 트리 노드 개수로 인덱스 접근
+'''
 def find_pre_order(in_start, in_end, post_start, post_end):
-    if in_start > in_end:
+    if in_start > in_end or post_start > post_end:
         return
 
     root = post_order[post_end]
-    left_in_start = in_start
-    left_in_end = in_start - 1
-    left_post_start = post_start
-    left_post_end = post_start - 1
-
-    for i in range(in_start, in_end+1):
-        if in_order[i] == root:
-            break
-        left_in_end += 1
-        left_post_end += 1
-
-    right_in_start = i + 1
-    right_in_end = in_end
-    right_post_start = i
-    right_post_end = post_end - 1
+    left = root_pos[root] - in_start
+    right = in_end - root_pos[root]
 
     print(root, end=' ')
-    find_pre_order(left_in_start, left_in_end, left_post_start, left_post_end)
-    find_pre_order(right_in_start, right_in_end, right_post_start, right_post_end)
+    find_pre_order(in_start, in_start+left-1, post_start, post_start+left-1)
+    find_pre_order(in_end-right+1, in_end, post_end-right, post_end-1)
 
 
 n = int(input())
 
 in_order = list(map(int, input().split()))
 post_order = list(map(int, input().split()))
+
+root_pos = [0 for _ in range(n+1)]
+
+for i in range(n):
+    root_pos[in_order[i]] = i
 
 in_start, in_end, post_start, post_end = 0, n-1, 0, n-1
 
