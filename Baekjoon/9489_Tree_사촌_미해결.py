@@ -1,13 +1,15 @@
 import sys
+
 sys.stdin = open("input.txt")
 input = sys.stdin.readline
+
 
 def cnt_cousin(parent_sibling):
     global data_idx, k_cousin
     cnt = 0
     for _ in range(parent_sibling):
         temp = []
-        k_brother = False
+        k_brother = 0
         brother_cnt = 0
         while data_idx < n:
             if not temp:
@@ -20,31 +22,30 @@ def cnt_cousin(parent_sibling):
                     brother_cnt += 1
                     cnt += 1
                 else:
-                    if k_brother:
-                        cnt -= brother_cnt
                     break
             if data[data_idx] == k:
-                k_cousin = True
-                k_brother = True
+                k_cousin = 1
+                k_brother = 1
             data_idx += 1
+        if k_brother:
+            cnt -= brother_cnt
 
     return cnt
-
 
 
 while True:
     n, k = map(int, input().split())
     if not n:
         break
-    data = tuple(map(int, input().split()))
+    data = list(map(int, input().split()))
 
     data_idx = 1
-    k_cousin = False
+    k_cousin = 0
     parent_sibling = 1
 
     while True:
-        temp = cnt_cousin(parent_sibling)
+        sibling = cnt_cousin(parent_sibling)
         if k_cousin:
-            print(temp)
+            print(sibling)
             break
-        parent_sibling = temp
+        parent_sibling = sibling
