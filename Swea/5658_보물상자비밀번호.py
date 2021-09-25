@@ -4,6 +4,10 @@ sys.stdin = open("input.txt")
 
 T = int(input())
 
+"""
+시계방향 고려 필요!
+"""
+
 for tc in range(1, T + 1):
     N, K = map(int, input().split())
     data = input()
@@ -12,8 +16,8 @@ for tc in range(1, T + 1):
     ans = []
 
     for i in range(N // 4):  # 시작위치를 i만큼 이동
-        for j in range(0, N, N // 4):  # 4개의 면 중 더해줄 면을 j로 접근
-            temp = int("0x" + data[i + j : i + j + N // 4], 16)  # 16진수 10진수로 변환
+        for j in range(i, N, N // 4):  # 4개의 면 중 더해줄 면을 j로 접근
+            temp = int("0x" + data[j : j + N // 4], 16)  # 16진수 10진수로 변환
             if temp not in ans:  # 중복되지 않아야 하므로 해당 값 없을 때만 append
                 ans.append(temp)
 
