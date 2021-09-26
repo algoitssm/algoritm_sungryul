@@ -208,5 +208,74 @@ for tc in range(1, T + 1):
     print(f'#{tc} {res}')
 ```
 
+## ✅2105_디저트 카페
+
+```python
+T = int(input())
 
 
+# 왼쪽 위, 오른쪽 위, 왼쪽 아래, 오른쪽 아래
+dr = [-1, -1, 1, 1]
+dc = [-1, 1, -1, 1]
+
+nds = {0: [0, 2], 1: [1, 0], 2: [2, 3], 3: [3, 1]}  # 반시계 방향 기준
+
+
+def dfs(cur, start, d, d_chk):
+    global ans
+    while stack:
+        cur_row, cur_col = stack.pop()
+        nxt_row = cur_row + dr[d]
+        nxt_col = cur_col + dc[d]
+
+        if 0 <= nxt_row < N and 0 <= nxt_col < N:
+            if nxt_row == start[0] and nxt_col == start[1]:
+                if ans < visited[cur_row][cur_col] + 1:
+                    ans = visited[cur_row][cur_col] + 1
+                return
+            if not chk[data[nxt_row][nxt_col]] and visited[nxt_row][nxt_col] == -1:
+                for nd in nds[d]:
+                    if d != nd:
+                        if d_chk[nd]:
+                            continue
+                        d_chk[d] = 1
+                    temp = visited[nxt_row][nxt_col]
+                    visited[nxt_row][nxt_col] = visited[cur_row][cur_col] + 1
+                    chk[data[nxt_row][nxt_col]] = 1
+                    stack.append((nxt_row, nxt_col))
+                    temp_d_chk = d_chk[:]
+                    dfs((nxt_row, nxt_col), start, nd, d_chk)
+                    visited[nxt_row][nxt_col] = temp
+                    chk[data[nxt_row][nxt_col]] = 0
+                    d_chk = temp_d_chk[:]
+
+
+for tc in range(1, T + 1):
+    N = int(input())
+    data = [list(map(int, input().split())) for _ in range(N)]
+
+    ans = -1
+
+    for row in range(N):
+        for col in range(1, N - 1):
+            for i in range(4):
+                visited = [[-1] * N for _ in range(N)]
+                chk = [0] * 101
+                stack = [(row, col)]
+                visited[row][col] += 1
+                chk[data[row][col]] = 1
+                d_chk = [0, 0, 0, 0]
+
+                dfs((row, col), (row, col), i, d_chk)
+    print("#{} {}".format(tc, ans))
+```
+
+- 처음 풀이
+
+  - 되돌아가는 방향만 제외하고 3가지 방향 체크하면서 출발지로 돌아오면 대각선에 있는 뱡향의 이동 횟수가 같은지 여부 확인
+
+    => 모든 경우의 수 확인해야 해서 시간도 오래 걸리고 갔던 방향을 다시 가는 경우 생겨 오답
+
+- 최종 풀이
+  - 스터디 후 시계 또는 반시계 방향으로 한 쪽 방향 잡고 방향을 바꿀 때 이전 방향은 다시 가지 않도록 체크
+  - 이렇게 풀 경우 다시 출발지에 오면 무조건 직사각형 형태 이루어지므로 통과!
