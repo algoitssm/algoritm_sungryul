@@ -355,3 +355,131 @@ else:
 
 => 왜 위에서는 통과를 못하고 아래에서는 통과했는지 의문....
 
+## ✅2263_트리의 순회
+
+### 1. 처음 풀이
+
+```python
+def find_pre_order(in_order, post_order):
+    root = post_order[-1]
+
+    if len(in_order) == 1:
+        print(root, end=' ')
+        return
+
+    left_in = []
+    left_post = []
+    right_in = []
+    right_post = []
+
+    for i in range(len(in_order)):
+        if in_order[i] == root:
+            break
+        left_in.append(in_order[i])
+        left_post.append(post_order[i])
+
+    if in_order[-1] != root:
+        right_in = in_order[i+1:]
+        right_post = post_order[i:len(post_order)-1]
+
+    print(root, end=' ')
+    if left_in:
+        find_pre_order(left_in, left_post)
+    if right_in:
+        find_pre_order(right_in, right_post)
+```
+
+- `4256_트리` 문제에서처럼 리스트 자체를 인자로 넘겨주면서 해결하려 했으나 메모리 초과 문제 발생
+
+### 2. 통과 풀이
+
+```python
+def find_pre_order(in_start, in_end, post_start, post_end):
+    if in_start > in_end or post_start > post_end:
+        return
+
+    root = post_order[post_end]
+    left = root_pos[root] - in_start
+    right = in_end - root_pos[root]
+
+    print(root, end=" ")
+    find_pre_order(in_start, in_start + left - 1, post_start, post_start + left - 1)
+    find_pre_order(in_end - right + 1, in_end, post_end - right, post_end - 1)
+
+
+n = int(input())
+
+in_order = list(map(int, input().split()))
+post_order = list(map(int, input().split()))
+
+root_pos = [0 for _ in range(n + 1)]
+
+for i in range(n):
+    root_pos[in_order[i]] = i
+
+in_start, in_end, post_start, post_end = 0, n - 1, 0, n - 1
+
+find_pre_order(in_start, in_end, post_start, post_end)
+```
+
+- in order와 post order 입력값을 인덱스로 접근하고, 인덱스 갱신은 좌, 우 서브 트리의 개수 이용
+
+## ✅9489_사촌 _미해결
+
+### 1. 미해결 코드
+
+```python
+import sys
+
+# sys.stdin = open("input.txt")
+input = sys.stdin.readline
+
+
+def cnt_cousin(parent_sibling):
+    global data_idx, k_cousin
+    cnt = 0  # 사촌 명 수 세어줄 변수
+    for _ in range(parent_sibling):
+        temp = []  # 형제 담을 임시 변수
+        k_brother = 0  # k의 형제인지 여부
+        brother_cnt = 0  # 형제 명 수 세어줄 변수
+        while data_idx < n:
+            if not temp:  # temp 비어있으면 append하면서 명 수 늘려줌
+                temp.append(data[data_idx])
+                brother_cnt += 1
+                cnt += 1
+            else:
+                if temp[-1] + 1 == data[data_idx]:  # temp 마지막 값에서 +1 한 값이면 명 수 늘려줌
+                    temp.append(data[data_idx])
+                    brother_cnt += 1
+                    cnt += 1
+                else:  # +1 한 값 아니면 break
+                    break
+            if data[data_idx] == k:  # k 만나면 k_cousin, k_brother True로 바꿔줌
+                k_cousin = 1
+                k_brother = 1
+            data_idx += 1
+        if k_brother:
+            cnt -= brother_cnt
+
+    return cnt
+
+
+while True:
+    n, k = map(int, input().split())
+    if not n:
+        break
+    data = list(map(int, input().split()))
+
+    data_idx = 1  # data에 접근할 인덱스
+    k_cousin = 0  # k의 사촌인지 여부
+    parent_sibling = 1  # 부모의 형제 포함 사촌 명 수
+
+    while True:
+        sibling = cnt_cousin(parent_sibling)
+        if k_cousin:  # k의 사촌이면
+            print(sibling)
+            break
+        parent_sibling = sibling  # k의 사촌 아니면 인자 갱신하여 다시 함수 실행
+```
+
+- `data_idx`를 증가시켜주면서 k의 사촌인지 형제인지 여부 판단하는 방법으로 O(N) 복잡도를 가지는 풀이인 거 같은데 시간 초과 문제 발생하여 해결 필요!

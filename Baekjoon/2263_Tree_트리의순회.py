@@ -8,26 +8,26 @@ input = sys.stdin.readline
 """
 # def find_pre_order(in_order, post_order):
 #     root = post_order[-1]
-#
+
 #     if len(in_order) == 1:
 #         print(root, end=' ')
 #         return
-#
+
 #     left_in = []
 #     left_post = []
 #     right_in = []
 #     right_post = []
-#
+
 #     for i in range(len(in_order)):
 #         if in_order[i] == root:
 #             break
 #         left_in.append(in_order[i])
 #         left_post.append(post_order[i])
-#
+
 #     if in_order[-1] != root:
 #         right_in = in_order[i+1:]
 #         right_post = post_order[i:len(post_order)-1]
-#
+
 #     print(root, end=' ')
 #     if left_in:
 #         find_pre_order(left_in, left_post)
