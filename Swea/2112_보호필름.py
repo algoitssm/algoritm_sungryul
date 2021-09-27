@@ -1,8 +1,5 @@
 from itertools import combinations
 from collections import deque
-import sys
-
-sys.stdin = open("input.txt")
 
 T = int(input())
 
