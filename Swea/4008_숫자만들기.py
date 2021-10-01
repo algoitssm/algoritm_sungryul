@@ -55,14 +55,14 @@ for tc in range(1, T + 1):
     # op = []
     # for i in range(4):
     #     op += [i] * operator[i]
-
+    #
     # permus = set(permutations(op, N - 1))
-
+    #
     # max_val = -100000000
     # min_val = 100000000
     # for permu in permus:
     #     temp = nums[0]
-
+    #
     #     for i in range(N - 1):
     #         if permu[i] == 0:
     #             temp += nums[i + 1]
@@ -77,5 +77,5 @@ for tc in range(1, T + 1):
     #         min_val = temp
     #     if temp > max_val:
     #         max_val = temp
-
+    #
     # print("#{} {}".format(tc, max_val - min_val))
