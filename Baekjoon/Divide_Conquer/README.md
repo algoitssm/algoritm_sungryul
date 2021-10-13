@@ -1,3 +1,8 @@
+## ✅2448
+
+- 풀이 코드
+
+```python
 import math
 
 
@@ -17,3 +22,7 @@ for i in range(k):
 
 for star in stars:
     print(star)
+```
+
+- 풀이 방법(구글링...)
+  - 기본 단위를 만들어두고 오른쪽으로 얼마나 빈 공간을 둬야하는지 계산
