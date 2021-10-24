@@ -1,5 +1,7 @@
 """
 가중치 없기 때문에 bfs로 풀어도 상관 X
+ans에 하나씩 append하고 정렬하면 시간 초과
+heapq 사용
 """
 # N 도시 개수  M 도로 개수  K 거리 정보  X 출발 도시
 from collections import deque
