@@ -51,4 +51,6 @@
          
 - 10/27: SWEA 5650, 5648, 5653
          BAEKJOON 18352, 11403, 2224, 11265
+     
+- 10/31: BAEKJOON - Shortest Path 1719
 
