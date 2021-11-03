@@ -54,3 +54,5 @@
      
 - 10/31: BAEKJOON - Shortest Path 1719
 
+- 11/03 : BAEKJOON - Shortest Path 18243, 1058, 1446, 1389,  9205, 14938
+
